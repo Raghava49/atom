@@ -29,7 +29,7 @@ export function afterEach (fn) {
   }
 })
 
-export function conditionPromise (condition)  {
+export function conditionPromise (condition, timeoutInMilliseconds = 5000)  {
   const timeoutError = new Error("Timed out waiting on condition")
   Error.captureStackTrace(timeoutError, conditionPromise)
 
@@ -44,7 +44,7 @@ export function conditionPromise (condition)  {
     const timeout = global.setTimeout(function () {
       global.clearInterval(interval)
       reject(timeoutError)
-    }, 5000)
+    }, timeoutInMilliseconds)
   })
 }
 
