@@ -12,7 +12,13 @@ import {timeoutPromise, conditionPromise} from '../async-spec-helpers'
 const ATOM_RESOURCE_PATH = path.resolve(__dirname, '..', '..')
 
 describe('AtomApplication', function () {
-  this.timeout(60 * 1000)
+  // These tests can be particularly slow on CI, so give them enough time to
+  // run on slower machines.
+  if (process.env.CIRCLECI) {
+    this.timeout(3 * 60 * 1000)
+  } else {
+    this.timeout(10 * 1000)
+  }
 
   let originalAtomHome, atomApplicationsToDestroy
 
@@ -377,7 +383,7 @@ describe('AtomApplication', function () {
   async function focusWindow (window) {
     window.focus()
     await window.loadedPromise
-    await conditionPromise(() => window.atomApplication.lastFocusedWindow === window)
+    await conditionPromise(() => window.atomApplication.lastFocusedWindow === window, 60 * 1000)
   }
 
   function makeTempDir (name) {
