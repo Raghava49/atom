@@ -126,6 +126,7 @@
 
   # Sublime Parity
   'ctrl-enter': 'editor:newline-below'
+  'shift-enter': 'editor:newline-below'
   'ctrl-shift-enter': 'editor:newline-above'
   'ctrl-]': 'editor:indent-selected-rows'
   'ctrl-[': 'editor:outdent-selected-rows'
